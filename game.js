@@ -9,7 +9,7 @@ let player = {
     x: 0,
     y: 0,
     speed: 20,
-
+    health: 60,
 }
 let ai = {
     x: rand(0, 58) * 20,
@@ -144,6 +144,8 @@ function Draw() {
     ctx.fillStyle = "darkgrey";
     ctx.fillRect(ai.x, ai.y, 20, 20);
     ctx.fillRect(ai2.x, ai2.y, 20, 20);
+    ctx.fillStyle = "#ff8081";
+    ctx.fillRect(30, 30, player.health, 10);
 }
 function Update() {
         AI();
@@ -160,11 +162,19 @@ function Update() {
         player.y = 0;
     }
     if (player.x == ai.x && player.y == ai.y) {
-        alert('Game Over');
-        window.location.href = "index.html";
+        player.health -= rand(5, 20);
     }
     if (player.x == ai2.x && player.y == ai2.y) {
-        alert('Game Over');
+        player.health -= rand(5, 20);
+    }
+    if (player.health >= 150) {
+        player.health = 150;
+    }
+    if (player.health <= 0) {
+        player.health = 0;
+        setTimeout(GO, 300);
+    }
+    function GO() {
         window.location.href = "index.html";
     }
     Draw();
