@@ -25,7 +25,10 @@ let ai2 = {
     side: 0,
     running: 0,
 }
-
+let point = {
+    x: rand(0, 58) * 20,
+    y: rand(0,35) * 20,
+}
 let rightPressed = false;
 let leftPressed = false;
 let UpPressed  = false;
@@ -144,32 +147,39 @@ function Draw() {
     ctx.fillStyle = "darkgrey";
     ctx.fillRect(ai.x, ai.y, 20, 20);
     ctx.fillRect(ai2.x, ai2.y, 20, 20);
-    ctx.fillStyle = "#ff8081";
+    ctx.fillStyle = "#ff8081"; // Health
     ctx.fillRect(30, 30, player.health, 10);
+    ctx.fillStyle = "#c257d5"; // point
+    ctx.fillRect(point.x, point.y, 20, 20);
 }
 function Update() {
         AI();
-    if (player.x >= 1160) {
-        player.x = 1160;
+    if (point.x == player.x && point.y == player.y) {
+        let x = ai.x + (rand(-10, 10) * 20);
+        let y = ai.y + (rand(-10, 10) * 20);
+        if (x > 1160) x = 1160;
+        if (x < 0) x = 0;
+        if (y > 700) y = 700;
+        if (y < 0) y = 0;
+        point.x = x;
+        point.y = y;
+        player.health += rand(2, 10);
     }
-    if (player.x <= 0) {
-        player.x = 0;
-    }
-    if (player.y >= 700) {
-        player.y = 700;
-    }
-    if (player.y <= 0) {
-        player.y = 0;
-    }
-    if (player.x == ai.x && player.y == ai.y) {
-        player.health -= rand(5, 20);
-    }
-    if (player.x == ai2.x && player.y == ai2.y) {
-        player.health -= rand(5, 20);
-    }
-    if (player.health >= 150) {
-        player.health = 150;
-    }
+    if (player.x >= 1160) {player.x = 1160}
+    if (player.x <= 0) {player.x = 0;}
+    if (player.y >= 700) {player.y = 700;}
+    if (player.y <= 0) {player.y = 0;}
+    if (ai.x >= 1160) {ai.x = 1160}
+    if (ai.x <= 0) {ai.x = 0;}
+    if (ai.y >= 700) {ai.y = 700;}
+    if (ai.y <= 0) {ai.y = 0;}
+    if (ai2.x >= 1160) {ai2.x = 1160}
+    if (ai2.x <= 0) {ai2.x = 0;}
+    if (ai2.y >= 700) {ai2.y = 700;}
+    if (ai2.y <= 0) {ai2.y = 0;}
+    if (player.x == ai.x && player.y == ai.y) {player.health -= rand(5, 20);}
+    if (player.x == ai2.x && player.y == ai2.y) {player.health -= rand(5, 20);}
+    if (player.health >= 150) {player.health = 150;}
     if (player.health <= 0) {
         player.health = 0;
         setTimeout(GO, 300);
@@ -178,17 +188,9 @@ function Update() {
         window.location.href = "index.html";
     }
     Draw();
-    if (leftPressed) {
-        player.x -= player.speed;
-    }
-    if (rightPressed) {
-        player.x += player.speed;
-    }
-    if (UpPressed) {
-        player.y -= player.speed;
-    }
-    if (DownPressed) {
-        player.y += player.speed;
-    }
+    if (leftPressed) {player.x -= player.speed;}
+    if (rightPressed) {player.x += player.speed;}
+    if (UpPressed) {player.y -= player.speed;}
+    if (DownPressed) {player.y += player.speed;}
 }
 setInterval(Update, FPS);
