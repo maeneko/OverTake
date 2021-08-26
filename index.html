@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OverTake!</title>
+    <style>
+        body {
+            overflow: hidden;
+        }
+        #button1 {
+            border-radius: 8px;
+            text-decoration: none;
+            background-color: darkgray; /* Green */
+            border: none;
+            color: white;
+            font-family: "Segoe UI";
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 14px 100px;
+            position: absolute;
+            left: 450px;
+            top: 386px;
+        }
+        #button2 {
+            border-radius: 8px;
+            text-decoration: none;
+            background-color: darkgray; /* Green */
+            border: none;
+            color: white;
+            font-family: "Segoe UI";
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 14px 100px;
+            position: absolute;
+            left: 450px;
+            top: 486px;
+        }
+        #img {
+            position: absolute;
+            left: 250px;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+<img src="Title.png" id="img">
+<a id="button1" href="game.html">Начать</a>
+<a id="button2" href="#" onclick="Exit()">Выйти</a>
+    <script>
+        function Exit(){
+            const remote = require('electron').remote
+            let w = remote.getCurrentWindow()
+            w.close()
+        }
+    </script>
+    <canvas id="background" width="1200" height="800"></canvas>
+    <script src="Menu.js"></script>
+</body>
+</html>
